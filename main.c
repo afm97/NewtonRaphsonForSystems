@@ -14,19 +14,17 @@
 
 int main()
 {
-    double matrix[3][3];
+    double matrix[4][4];
 
     int rows = sizeof(matrix) / sizeof(matrix[0]);
 
     dataConfig config = {.initialValues[0] = 0.1,
                          .initialValues[1] = 0.1,
-                         .initialValues[2] = -0.1,
+                         .initialValues[2] = 0.1,
                          .initialValues[3] = 0.1,
                          .toleranceForDerivative = 0.0001,
-                         .toleranceForIterations = 0.00000001,
+                         .toleranceForIterations = 0.00001,
                          .numberMaxOfIterations = 500};
-
-    unsigned int numberMaxOfIterations = 500;
 
     double independentValues[rows];
     double solution[rows];
