@@ -1,32 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "dataFormat.h"
+#include "gaussianElimination.h"
+#include "transferValuesOfArrays.h"
 #include "printArray.h"
 #include "printMatrix.h"
 #include "norm.h"
+#include "derivatives.h"
+#include "functions.h"
+#include "jacobian.h"
+#include "newtonRaphson.h"
 
 int main()
 {
-    /*
-    double matrix[][5] = {{10, -1, 2, 0, 6},
-                          {-1, 11, -1, 3, 25},
-                          {2, -1, 10, -1, -11},
-                          {0, 3, -1, 8, 15}};
-
-    // Sol: x1 = 1, x2 = 2, x3 = -1, x4 = 1
-    */
-
-    double matrix[][5] = {{-4, 1, 1, 0, -50},
-                          {1, -4, 0, 1, -100},
-                          {1, 0, -4, 1, -50},
-                          {0, 1, 1, -4, -100}};
+    double matrix[3][3];
 
     int rows = sizeof(matrix) / sizeof(matrix[0]);
 
-    double solution[rows];
-    zeros(rows, solution);
+    dataConfig config = {.initialValues[0] = 0.1,
+                         .initialValues[1] = 0.1,
+                         .initialValues[2] = -0.1,
+                         .initialValues[3] = 0.1,
+                         .toleranceForDerivative = 0.0001,
+                         .toleranceForIterations = 0.00000001,
+                         .numberMaxOfIterations = 500};
 
-    double tolerance = 0.00001;
-    unsigned int numberMaxOfIterations = 50;
-    float relaxationFactor = 1.07;
+    unsigned int numberMaxOfIterations = 500;
+
+    double independentValues[rows];
+    double solution[rows];
+    NewtonRaphson(rows,
+                  matrix,
+                  independentValues,
+                  config.initialValues,
+                  config.toleranceForDerivative,
+                  config.toleranceForIterations,
+                  config.numberMaxOfIterations);
 }
