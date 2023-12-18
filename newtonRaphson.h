@@ -1,13 +1,34 @@
-void NewtonRaphson(unsigned int numberOfRows, double matrix[numberOfRows][numberOfRows], double independentValues[numberOfRows], double x_1, double x_2, double x_3, double h)
+void NewtonRaphson(unsigned int numberOfRows,
+                   double matrix[numberOfRows][numberOfRows],
+                   double independentValues[numberOfRows],
+                   double initialValues[numberOfRows],
+                   double h,
+                   double tolerance,
+                   unsigned int numberMaxOfIterations)
 {
+    unsigned int counter = 0;
+    double normOfArray;
 
-    jacobian(x_1, x_2, x_3, h, matrix);
+    do
+    {
+        counter++;
 
-    independentValues[0] = -func1(x_1, x_2, x_3);
-    independentValues[1] = -func2(x_1, x_2, x_3);
-    independentValues[2] = -func3(x_1, x_2, x_3);
+        jacobian(initialValues[0], initialValues[1], initialValues[2], h, matrix);
 
-    gaussianElimination(numberOfRows, matrix, independentValues);
+        independentValues[0] = -func1(initialValues[0], initialValues[1], initialValues[2]);
+        independentValues[1] = -func2(initialValues[0], initialValues[1], initialValues[2]);
+        independentValues[2] = -func3(initialValues[0], initialValues[1], initialValues[2]);
 
-    printArray(numberOfRows, independentValues);
+        gaussianElimination(numberOfRows, matrix, independentValues);
+
+        for (unsigned int i = 0; i < numberOfRows; i++)
+        {
+            independentValues[i] += initialValues[i];
+        }
+
+        normOfArray = norm(numberOfRows, independentValues, initialValues);
+        printArray(numberOfRows, initialValues);
+        transferValuesOfArrays(numberOfRows, independentValues, initialValues);
+
+    } while (normOfArray > tolerance && counter < numberMaxOfIterations);
 }
