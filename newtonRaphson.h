@@ -13,11 +13,12 @@ void NewtonRaphson(unsigned int numberOfRows,
     {
         counter++;
 
-        jacobian(initialValues[0], initialValues[1], initialValues[2], h, matrix);
+        jacobian(initialValues[0], initialValues[1], initialValues[2], initialValues[3], h, matrix);
 
-        independentValues[0] = -func1(initialValues[0], initialValues[1], initialValues[2]);
-        independentValues[1] = -func2(initialValues[0], initialValues[1], initialValues[2]);
-        independentValues[2] = -func3(initialValues[0], initialValues[1], initialValues[2]);
+        independentValues[0] = -func1(initialValues[0], initialValues[1], initialValues[2], initialValues[3]);
+        independentValues[1] = -func2(initialValues[0], initialValues[1], initialValues[2], initialValues[3]);
+        independentValues[2] = -func3(initialValues[0], initialValues[1], initialValues[2], initialValues[3]);
+        independentValues[3] = -func4(initialValues[0], initialValues[1], initialValues[2], initialValues[3]);
 
         gaussianElimination(numberOfRows, matrix, independentValues);
 
@@ -30,5 +31,5 @@ void NewtonRaphson(unsigned int numberOfRows,
         printArray(numberOfRows, initialValues);
         transferValuesOfArrays(numberOfRows, independentValues, initialValues);
 
-    } while (normOfArray > tolerance && counter < numberMaxOfIterations);
+    } while (normOfArray > tolerance && counter <= numberMaxOfIterations);
 }
