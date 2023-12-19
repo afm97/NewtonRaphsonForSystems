@@ -1,3 +1,5 @@
+#include <math.h>
+
 double norm(unsigned int numberOfRows, double currentSolutionArray[numberOfRows], double previousSolutionArray[numberOfRows])
 {
     double maxValueOfCurrent = 0, maxValueOfPrevious = 0, normOfArray;

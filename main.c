@@ -20,7 +20,7 @@ int main()
 
     dataConfig config = {.initialValues[0] = 0.1,
                          .initialValues[1] = 0.1,
-                         .initialValues[2] = 0.1,
+                         .initialValues[2] = -0.1,
                          .initialValues[3] = 0.1,
                          .toleranceForDerivative = 0.0001,
                          .toleranceForIterations = 0.00001,
