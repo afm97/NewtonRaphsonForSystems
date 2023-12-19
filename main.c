@@ -27,7 +27,7 @@ int main()
                          .numberMaxOfIterations = 500};
 
     double independentValues[rows];
-    double solution[rows];
+
     NewtonRaphson(rows,
                   matrix,
                   independentValues,
